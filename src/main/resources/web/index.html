@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="AduProof — an educational, local demonstration of signed online notices.">
+  <title>AduProof · Verify the original</title>
+  <link rel="stylesheet" href="/app.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <div class="site-shell">
+    <header class="topbar">
+      <a href="/" class="brand" aria-label="AduProof home"><span class="brand-mark" aria-hidden="true">A<span class="mark-dot">.</span></span><span>Adu<span class="brand-highlight">Proof</span></span></a>
+      <div class="topright"><span class="environment">LOCAL DEMO</span><a href="#how-it-works" class="toplink">How it works ↗</a></div>
+    </header>
+    <main>
+      <section class="hero">
+        <div class="eyebrow"><span class="eyebrow-line"></span> ORIGIN & INTEGRITY / EXPERIMENTAL</div>
+        <h1>Know what was <em>actually</em> published.</h1>
+        <p class="lede">A real announcement can be copied and given a different link. AduProof demonstrates a way to compare what you received with the publisher's signed version.</p>
+        <div class="facts"><span>01 / Sign the notice</span><span>02 / Share the reference</span><span>03 / Verify the copy</span></div>
+      </section>
+      <div class="notice-banner" role="note"><strong>Prototype, not a trust service.</strong> This demo uses a local key, not a verified school or organization. A matching signature does not mean a notice is safe or true.</div>
+      <section class="workspace" aria-label="Interactive AduProof demo">
+        <div class="section-header"><div><div class="eyebrow mini">LIVE LOCAL WORKFLOW</div><h2>Try it yourself</h2></div><div class="workstep">Publisher <span class="arrow">→</span> Reader</div></div>
+        <div class="panels">
+          <article class="panel" id="publish">
+            <div class="panel-heading"><span class="panel-number">01</span><div><h3>Sign a notice</h3><p>Create a sample publisher-approved record.</p></div></div>
+            <form id="publish-form">
+              <label for="publish-title">Announcement title</label><input id="publish-title" name="title" maxlength="120" required value="Student Scholarship Applications 2027">
+              <label for="publish-body">Original message</label><textarea id="publish-body" name="body" rows="4" maxlength="2000" required>Scholarship applications are now open. Apply using the official link below.</textarea>
+              <label for="publish-destination">Approved destination URL</label><input id="publish-destination" name="destination" type="url" maxlength="500" required value="https://university.example/apply">
+              <label for="publish-days">Active for</label><select id="publish-days" name="days"><option value="7">7 days</option><option value="30" selected>30 days</option><option value="90">90 days</option></select>
+              <button id="publish-button" class="button button-primary" type="submit">Issue signed notice <span aria-hidden="true">↗</span></button>
+            </form>
+            <div class="issued-box" id="issued-box" hidden>
+              <div class="issued-label">SIGNED RECORD CREATED <span class="small-dot"></span></div>
+              <label for="notice-id">Share this notice ID with your announcement</label>
+              <div class="copyrow"><input id="notice-id" readonly aria-label="New signed notice ID"><button id="copy-id" class="button button-outline" type="button">Copy ID</button></div>
+              <p id="notice-meta" class="microcopy"></p>
+              <details><summary>View portable signed proof</summary><textarea id="proof-token" readonly rows="4" aria-label="Encoded signed proof"></textarea></details>
+              <button id="revoke-button" class="button button-revoke" type="button">Withdraw this notice</button>
+            </div>
+          </article>
+          <article class="panel" id="verify">
+            <div class="panel-heading"><span class="panel-number">02</span><div><h3>Verify a received copy</h3><p>Check the text and destination, not just the badge.</p></div></div>
+            <form id="verify-form">
+              <label for="verify-id">Signed notice ID</label><input id="verify-id" name="id" required placeholder="Paste the notice ID here" maxlength="36">
+              <label for="verify-title">Received title</label><input id="verify-title" name="title" maxlength="120" required placeholder="Paste the received announcement title">
+              <label for="verify-body">Received message</label><textarea id="verify-body" name="body" rows="4" maxlength="2000" required placeholder="Paste the received announcement text"></textarea>
+              <label for="verify-destination">Received destination URL</label><input id="verify-destination" name="destination" maxlength="500" required placeholder="Paste the link you received">
+              <div class="actions"><button id="verify-button" class="button button-primary" type="submit">Check this copy <span aria-hidden="true">↗</span></button></div>
+            </form>
+            <div class="shortcuts"><span>QUICK TEST</span><button type="button" id="load-original">Use original</button><button type="button" id="tamper-link">Change the link</button></div>
+            <div id="result-panel" class="result-panel" aria-live="polite" hidden><div class="result-caption">VERIFICATION RESULT</div><h4 id="result-title"></h4><p id="result-explanation"></p><div class="match-grid" id="match-grid"></div></div>
+          </article>
+        </div>
+        <p id="toast" class="toast" role="status" aria-live="polite"></p>
+      </section>
+      <section class="how" id="how-it-works"><div><div class="eyebrow mini">BEHIND THE PROOF</div><h2>Designed to prove a match.<br><span>Not to make promises.</span></h2></div><div class="how-copy"><p>Every issued notice is signed using <strong>Ed25519</strong>. The verifier checks the signature against this demo's pinned public key, compares the received content, and checks whether the record expired or was withdrawn.</p><p><strong>Important:</strong> domain ownership, legal identity, and phishing safety are separate problems. This release makes none of those claims.</p></div></section>
+    </main>
+    <footer><span class="brand-foot">AduProof.</span><span>Open-source educational prototype · Java 21</span><span>Built to be questioned, tested, and improved.</span></footer>
+  </div>
+</body>
+</html>

@@ -1,0 +1,16 @@
+# Local secrets and demonstration data
+/data/
+*.key
+*.pem
+
+# Build outputs
+/out/
+/target/
+*.class
+
+# IDE / OS
+.idea/
+.vscode/
+*.iml
+.DS_Store
+Thumbs.db
